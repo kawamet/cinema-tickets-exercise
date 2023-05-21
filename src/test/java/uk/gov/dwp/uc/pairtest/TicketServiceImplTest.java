@@ -98,10 +98,10 @@ public class TicketServiceImplTest {
     }
 
     @Test
-    public void shouldCallReserveSeatWithCorrectNumber() {
-        TicketPurchaseRequest ticketPurchaseRequest = new TicketPurchaseRequest(1, new TicketRequest[]{ADULT_TICKET_REQUEST, CHILD_TICKET_REQUEST, INFANT_TICKET_REQUEST, ADULT_TICKET_REQUEST});
+    public void shouldCallReserveSeatWithCorrectNumberWhenOneTicketPerType() {
+        TicketPurchaseRequest ticketPurchaseRequest = new TicketPurchaseRequest(1, new TicketRequest[]{ADULT_TICKET_REQUEST, CHILD_TICKET_REQUEST, INFANT_TICKET_REQUEST});
         underTest.purchaseTickets(ticketPurchaseRequest);
-        Mockito.verify(seatReservationService, times(1)).reserveSeat(1, 3);
+        Mockito.verify(seatReservationService, times(1)).reserveSeat(1, 2);
     }
     @Test
     public void shouldCallReserveSeatWithCorrectNumberWhenMultipleTicketPerType() {

@@ -82,7 +82,7 @@ public class TicketServiceImpl implements TicketService {
         if (!containsAdult(ticketTypeRequests)) {
             throw new InvalidPurchaseException("Child and Infant tickets cannot be purchased without purchasing an Adult ticket");
         }
-        int ticketNumber = getTicketNumber(ticketTypeRequests);
+        int ticketNumber = getTotalTicketNumber(ticketTypeRequests);
         if (ticketNumber > MAX_TICKET_NO) {
             throw new InvalidPurchaseException("A maximum of 20 tickets can be purchased at a time");
         }
@@ -96,7 +96,7 @@ public class TicketServiceImpl implements TicketService {
                 .anyMatch(e -> ADULT.equals(e.getTicketType()));
     }
 
-    private int getTicketNumber(TicketRequest[] ticketRequests) {
+    private int getTotalTicketNumber(TicketRequest[] ticketRequests) {
         return Arrays.stream(ticketRequests)
                 .mapToInt(TicketRequest::getNoOfTickets)
                 .sum();
